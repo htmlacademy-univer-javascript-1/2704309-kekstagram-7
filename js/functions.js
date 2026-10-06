@@ -29,6 +29,7 @@ const extractNumber = (value) => {
 
   return result === '' ? NaN : parseInt(result, 10);
 };
+
 checkStringLength('проверяемая строка', 20);
 checkStringLength('проверяемая строка', 18);
 checkStringLength('проверяемая строка', 10);
@@ -43,3 +44,31 @@ extractNumber('ECMAScript 2022');
 extractNumber('1 кефир, 0.5 батона');
 extractNumber('агент 007');
 extractNumber('а я томат');
+
+const isMeetingWithinWorkingHours = (
+  workStart,
+  workEnd,
+  meetingStart,
+  meetingDuration
+) => {
+  const getMinutes = (time) => {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
+
+  const workStartMinutes = getMinutes(workStart);
+  const workEndMinutes = getMinutes(workEnd);
+  const meetingStartMinutes = getMinutes(meetingStart);
+  const meetingEndMinutes = meetingStartMinutes + meetingDuration;
+
+  return (
+    meetingStartMinutes >= workStartMinutes &&
+    meetingEndMinutes <= workEndMinutes
+  );
+};
+
+isMeetingWithinWorkingHours('08:00', '17:30', '14:00', 90);
+isMeetingWithinWorkingHours('8:0', '10:0', '8:0', 120);
+isMeetingWithinWorkingHours('08:00', '14:30', '14:00', 90);
+isMeetingWithinWorkingHours('14:00', '17:30', '08:0', 90);
+isMeetingWithinWorkingHours('8:00', '17:30', '08:00', 900);
