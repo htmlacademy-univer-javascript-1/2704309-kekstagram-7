@@ -1,5 +1,2 @@
-import {createPhotos} from './data.js';
 
-const photos = createPhotos();
-
-void photos;
+import './pictures.js';
